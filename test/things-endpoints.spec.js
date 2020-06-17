@@ -63,6 +63,14 @@ describe('Things Endpoints', function() {
           .set('Authorization', makeAuthHeader(userInvalidCreds))
           .expect(401, { error: `Unauthorized request` })
       })
+
+      it(`responds with 401 'Unauthorized request' when invalid user`, () => {
+        const userInvalidPassword = { user_name: testUsers[0].user_name, password: 'wrong' }
+        return supertest(app)
+          .get('/api/things/1')
+          .set('Authorization', makeAuthHeader(userInvalidPassword))
+          .expect(401, { error: `Unauthorized request` })
+      })
     })
   })
 
